@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=320px, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no">
+
+  <link rel="apple-touch-icon" href="icon.png" />
+  <link href="style.css" rel="stylesheet" type="text/css">
+
+  <script src="jquery-1.4.min.js" type="text/javascript"></script>
+  <script src="webtoolkit.base64.js" type="text/javascript"></script>
+  <script src="script.js" type="text/javascript"></script>
+
+  <title>simplenote</title>
+
+</head>
+
+<body>
+  
+  <div id="main" style="display: none">
+  
+    <div id="login">
+      <div class="header">
+        <h1 class="page-title">simplenote</h1>
+      </div>
+
+      <form id="loginForm">
+        <p><label for="email">email</label><input id="email" type="email" autocorrect="off" autocapitalize="off"></p>
+        <p><label for="password">password</label><input id="password" type="password"></p>
+        <p><label>&nbsp;</label><input type="submit" value="Log in"></p>
+        <p id="loginError"></p>
+      </form>
+    </div>
+
+    <div id="notes">
+      <div class="header">
+        <div class="button right action-refresh"><img src="refresh.png"></div>
+        <h1 class="page-title">simplenote</h1>
+      </div>
+      
+      <div class="filter">
+        <input type="search" id="filter" placeholder="filter notes">
+      </div>
+
+      <ul>
+      </ul>
+      
+      <div class="empty">
+        no notes
+      </div>
+    </div>
+  
+    <div id="note">
+      <div class="header">
+        <div class="button left action-showList"><img src="list.png"></div>
+        <h1 class="page-title">note</h1>
+      </div>
+
+      <div class="body"></div>
+    </div>
+  
+    <div id="templates" style="display:none">
+      <div class="note-list" id="note-list-template">
+        <span class="note-title" href="#">title</span>
+        <span class="modify">modify</span>
+        <span class="status"></span>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p><a class="action-logout" href="#">log out</a></p>
+    </div>
+
+  </div>
+
+  <div id="thinking">Thinking&#0133;</div>
+
+</body>
+
+</html>
+  
