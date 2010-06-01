@@ -13,8 +13,8 @@ role :db,  domain, :primary => true
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "sass --update #{deploy_to}"
-    run "ln -fs #{deploy_to} /home/tomi/web/movieos_generated/code"
+    run "sass --update #{deploy_to}/current/"
+    run "ln -fs #{deploy_to}/current /home/tomi/web/movieos_generated/code/simpleview"
   end
 
   task :stop, :roles => :app do
@@ -23,7 +23,7 @@ namespace :deploy do
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    run "sass --update #{deploy_to}"
-    run "ln -fs #{deploy_to} /home/tomi/web/movieos_generated/code"
+    run "sass --update #{deploy_to}/current/"
+    run "ln -fs #{deploy_to}/current /home/tomi/web/movieos_generated/code/simpleview"
   end
 end

@@ -265,16 +265,17 @@ function call(verb, command, params, callback) {
         params['email'] = localStorage.authEmail;
         params['auth'] = localStorage.authToken;
     }
-    console.log("fetching " + command);
+    console.log("fetching " + command + " with ", params);
     $.ajax({
         "url":"proxy.php/" + command,
         "type":verb,
         "data":params,
-        "success":function(data) {
+        "success":function(data, status, req) {
             try {
                 callback(data);
             } catch (e) {
                 console.log("Error in callback for " + command + ": ", e);
+                console.log(data);
                 $(".action-refresh img").attr("src", "refresh.png"); // kill spinner
             }
         },
