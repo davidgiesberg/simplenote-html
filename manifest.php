@@ -13,5 +13,17 @@
       $hashes .= md5_file($file);
     }
   }
-  echo "# Hash: " . md5($hashes) . "\n";
+
+  echo "\nNETWORK:\n";
+
+  $dir = new RecursiveDirectoryIterator(".");
+  foreach(new RecursiveIteratorIterator($dir) as $file) {
+    if ($file->IsFile() && substr($file->getFilename(), 0, 1) != "." && !strpos($file, "/.") && strpos($file, ".php"))
+    {
+      echo $file . "\n";
+      $hashes .= md5_file($file);
+    }
+  }
+
+  echo "\n# Hash: " . md5($hashes) . "\n";
 ?>

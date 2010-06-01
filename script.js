@@ -136,6 +136,7 @@ function showLogin() {
     justShow("#login");
     $("#email").val( localStorage.authEmail );
     $("#password").val("");
+    return false; // callback
 }
 
 function doLogin() {
@@ -157,6 +158,7 @@ function callLogin(email,password) {
     authToken = "";
     $.ajax({
         "url":"proxy.php/login",
+        //"url":"https://simple-note.appspot.com/api/login",
         "type":"POST",
         "data":Base64.encode(auth),
         "success":function(data) {
@@ -268,6 +270,7 @@ function call(verb, command, params, callback) {
     console.log("fetching " + command + " with ", params);
     $.ajax({
         "url":"proxy.php/" + command,
+        //"url":"https://simple-note.appspot.com/api/" + command,
         "type":verb,
         "data":params,
         "success":function(data, status, req) {
@@ -275,7 +278,7 @@ function call(verb, command, params, callback) {
                 callback(data);
             } catch (e) {
                 console.log("Error in callback for " + command + ": ", e);
-                console.log(data);
+                //console.log(data);
                 $(".action-refresh img").attr("src", "refresh.png"); // kill spinner
             }
         },

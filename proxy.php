@@ -2,7 +2,6 @@
 
 $urlbase = "https://simple-note.appspot.com/api";
 
-
 # Check for valid input
 $command = $_SERVER['PATH_INFO']; # isset($_REQUEST['command']) && !empty($_REQUEST['command']) ? $_REQUEST['command'] : '';
 
@@ -12,11 +11,9 @@ $command = $_SERVER['PATH_INFO']; # isset($_REQUEST['command']) && !empty($_REQU
 
 $url = $urlbase.$command."?".$_SERVER["QUERY_STRING"];
 
-error_log($url);
-
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); # Follow 301/302
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false); # don't follow 301/302
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $postVars = array();;
