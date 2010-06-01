@@ -7,7 +7,6 @@
 
   $dir = new RecursiveDirectoryIterator(".");
   foreach(new RecursiveIteratorIterator($dir) as $file) {
-    error_log( $file->getFilename() );
     if ($file->IsFile() && substr($file->getFilename(), 0, 1) != "." && !strpos($file, "/.") && !strpos($file, ".php"))
     {
       echo $file . "\n";

@@ -33,7 +33,7 @@ var cacheStatusValues = [];
      if (type == 'error' && navigator.onLine) {
          message+= ' There was an unknown error, check your Cache Manifest.';
      }
-     log(''+message);
+     log('[manifest] '+message);
  }
 
  function log(s) {
