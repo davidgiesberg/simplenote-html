@@ -265,11 +265,19 @@ function call(verb, command, params, callback) {
         params['email'] = localStorage.authEmail;
         params['auth'] = localStorage.authToken;
     }
+    console.log("fetching " + command);
     $.ajax({
         "url":"proxy.php/" + command,
         "type":verb,
         "data":params,
-        "success":callback,
+        "success":function(data) {
+            try {
+                callback(data);
+            } catch (e) {
+                console.log("Error in callback for " + command + ": ", e);
+                $(".action-refresh img").attr("src", "refresh.png"); // kill spinner
+            }
+        },
         "error":function(req,status,err) {
             console.log("Error: ", status, err);
             $("#loginError").text("API problem! Dumping to login form is the wrong thing to do here!");

@@ -7,9 +7,8 @@
 
   $dir = new RecursiveDirectoryIterator(".");
   foreach(new RecursiveIteratorIterator($dir) as $file) {
-    if ($file->IsFile() &&
-        $file != "./manifest.php" &&
-        substr($file->getFilename(), 0, 1) != ".")
+    error_log( $file->getFilename() );
+    if ($file->IsFile() && substr($file->getFilename(), 0, 1) != "." && !strpos($file, "/.") && !strpos($file, ".php"))
     {
       echo $file . "\n";
       $hashes .= md5_file($file);
