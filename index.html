@@ -22,6 +22,9 @@
 <body>
   
   <div id="main" style="display: none">
+
+    <div id="about">
+    </div>
   
     <div id="login">
       <div class="header">
@@ -35,7 +38,7 @@
         <p id="loginError"></p>
       </form>
       
-      <p>Please read the <a href="about.html" onclick="$('#login').load('about.html'); return false;">about page</a> first!</p>
+      <p>Please read the <a href="about.html" class="action-about">about page</a> first!</p>
       
     </div>
 
@@ -75,7 +78,8 @@
     </div>
     
     <div class="footer">
-      <p><a class="action-logout" href="#">log out</a></p>
+      <a class="action-about left" href="#">about</a>
+      <a class="action-logout right" href="#">log out</a>
     </div>
 
   </div>

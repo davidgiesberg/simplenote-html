@@ -15,6 +15,12 @@ function startup() {
     $(".action-showList").click(showList);
     $(".action-logout").click(showLogin);
     $(".action-refresh").click(fetchNoteList);
+    
+    $(".action-about").click(function() {
+        $('#about').load('about.html');
+        justShow("#about");
+        return false;
+    });
 
     // defer the complicated stuff so the loading bar goes away.
     setTimeout(loadNotes, 100);
