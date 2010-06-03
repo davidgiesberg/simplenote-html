@@ -1,11 +1,11 @@
-var notes = localStorage.notes ? (JSON.parse( localStorage.notes ) || {}) : {};
+var notes = localStorage['simplenote:notes'] ? (JSON.parse( localStorage['simplenote:notes'] ) || {}) : {};
 var needBodies = [];
 var $noteListTemplate;
 
 function startup() {
     justShow("#notes");
 
-    $("#filter").keyup(doFilter).click(doFilter).val(localStorage.filter);
+    $("#filter").keyup(doFilter).click(doFilter).val(localStorage['simplenote:filter']);
 
     $("#loginForm").submit(doLogin);
 
@@ -33,7 +33,7 @@ function loadNotes() {
     window.scrollTo(0,1) // get rid of address bar
 
     // do we have a login token?
-    if (!localStorage.authEmail || !localStorage.authToken) {
+    if (!localStorage['simplenote:authEmail'] || !localStorage['simplenote:authToken'] ) {
         showLogin();
         return;
     }
@@ -44,7 +44,7 @@ function loadNotes() {
 
     // if it's been 20 mins since the last sync, do one.
     var now = new Date().getTime();
-    var last = localStorage.lastSync ? localStorage.lastSync : 0;
+    var last = localStorage['simplenote:lastSync'] ? localStorage['simplenote:lastSync'] : 0;
     if (now - last > 20 * 60 * 1000) { // 20 mins
         console.log((now - last) + "ms since last sync");
         fetchNoteList();
@@ -62,7 +62,7 @@ function loadNotes() {
 
 function showList() {
     // we check this because I tend to use showList as a generic 'home' action.
-    if (!localStorage.authToken) return showLogin();
+    if (!localStorage['simplenote:authToken']) return showLogin();
     justShow("#notes");
     return false; // click handler
 }
@@ -77,7 +77,7 @@ function showNote(key) {
 }
 
 function doFilter() {
-    localStorage.filter = $("#filter").val();
+    localStorage['simplenote:filter'] = $("#filter").val();
     buildNotesList();
 }
 
@@ -90,7 +90,7 @@ function buildNotesList() {
 
     var added = 0;
     $.each(notes, function(i,note) {
-        if (localStorage.filter && !note.body.match(localStorage.filter)) return;
+        if (localStorage['simplenote:filter'] && !note.body.match(localStorage['simplenote:filter'])) return;
 
         added++;
 
@@ -133,20 +133,20 @@ function buildNotesList() {
 
 function showLogin() {
     // destroy local storage
-    localStorage.authToken = "";
-    localStorage.notes = "";
-    localStorage.filter = "";
+    localStorage['simplenote:authToken'] = "";
+    localStorage['simplenote:notes'] = "";
+    localStorage['simplenote:filter'] = "";
     notes = {};
     buildNotesList();
     
     justShow("#login");
-    $("#email").val( localStorage.authEmail );
+    $("#email").val( localStorage['simplenote:authEmail'] );
     $("#password").val("");
     return false; // callback
 }
 
 function doLogin() {
-    localStorage.authToken = "";
+    localStorage['simplenote:authToken'] = "";
     $("#thinking").show();
 
     // hide iphone keyboard
@@ -168,8 +168,8 @@ function callLogin(email,password) {
         "type":"POST",
         "data":Base64.encode(auth),
         "success":function(data) {
-            localStorage.authEmail = email;
-            localStorage.authToken = data;
+            localStorage['simplenote:authEmail'] = email;
+            localStorage['simplenote:authToken'] = data;
             showList();
             fetchNoteList();
         },
@@ -230,8 +230,8 @@ function fetchNoteList() {
             }
         }
         
-        localStorage.notes = JSON.stringify(notes);
-        localStorage.lastSync = new Date().getTime();
+        localStorage['simplenote:notes'] = JSON.stringify(notes);
+        localStorage['simplenote:lastSync'] = new Date().getTime();
         buildNotesList();
         $(".action-refresh img").attr("src", "refresh.png");
     });
@@ -252,7 +252,7 @@ function fetchOneBody() {
         call("GET", "note", { "key":key }, function(body) {
             notes[key].body = body;
             setTitle(notes[key]);
-            localStorage.notes = JSON.stringify(notes);
+            localStorage['simplenote:notes'] = JSON.stringify(notes);
             buildNotesList();
             fetchOneBody();
         });
@@ -269,9 +269,9 @@ function fetchOneBody() {
 
 function call(verb, command, params, callback) {
     params = params ? params : {};
-    if (localStorage.authEmail && localStorage.authToken) {
-        params['email'] = localStorage.authEmail;
-        params['auth'] = localStorage.authToken;
+    if (localStorage['simplenote:authEmail'] && localStorage['simplenote:authToken']) {
+        params['email'] = localStorage['simplenote:authEmail'];
+        params['auth'] = localStorage['simplenote:authToken'];
     }
     console.log("fetching " + command + " with ", params);
     $.ajax({

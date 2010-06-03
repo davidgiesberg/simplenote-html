@@ -1,6 +1,6 @@
-# simpleview
+# simplenote-html
 
-simpleview is a <b>read-only</b> HTML/JavaScript client for
+simplenote-html is a <b>read-only</b> HTML/JavaScript client for
 <a href="http://simplenoteapp.com/">simplenote</a>, written because I wanted
 to be able to read my notes on my Android phone, and I couldn't be bothered to
 write a real Java application for it. It stores the contents of your notes in
