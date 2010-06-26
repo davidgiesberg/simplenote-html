@@ -290,8 +290,9 @@ function call(verb, command, params, callback) {
         },
         "error":function(req,status,err) {
             console.log("Error: ", status, err);
-            $("#loginError").text("API problem! Dumping to login form is the wrong thing to do here!");
-            showLogin();
+            alert("API problem: " + status + ", " + err );
+            //$("#loginError").text("API problem! Dumping to login form is the wrong thing to do here!");
+            //showLogin();
         }
     });
 }
